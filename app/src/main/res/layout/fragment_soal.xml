@@ -1,0 +1,52 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".DaftarSoalActivity">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardSoal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:layout_margin="8dp"
+            android:id="@+id/textNo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No 1" />
+
+        <com.codesgood.views.JustifiedTextView
+            android:layout_margin="8dp"
+            android:id="@+id/soalUjian"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textNo"
+            android:padding="16dp"
+            android:text="Soal ujian"
+            android:layout_gravity="center_vertical|right"
+            android:textSize="16sp" />
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/cardSoal"
+        tools:listitem="@layout/option_item">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="invisible" />
+
+
+</RelativeLayout>
