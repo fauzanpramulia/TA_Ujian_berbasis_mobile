@@ -18,10 +18,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:label="Daftar Ujian Kelas"
-            android:name=".MainActivity" />
-        <activity android:label="Daftar Mahasiswa"
-            android:name=".DaftarMahasiswaActivity"/>
+        <activity
+            android:name=".MainActivity"
+            android:label="Daftar Ujian Kelas" />
+        <activity
+            android:name=".DaftarMahasiswaActivity"
+            android:label="Daftar Mahasiswa" />
+        <activity android:name=".ChangeStatusActivity"></activity>
     </application>
 
 </manifest>

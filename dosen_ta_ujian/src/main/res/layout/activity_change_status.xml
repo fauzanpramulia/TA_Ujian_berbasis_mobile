@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:layout_margin="16dp"
+    tools:context=".ChangeStatusActivity">
+
+    <TextView
+        android:id="@+id/nama"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nama Mahasiswa   : "
+        android:layout_marginBottom="16sp"
+        android:textSize="16sp"/>
+    <TextView
+        android:id="@+id/nama_mahasiswaST"
+        android:layout_toRightOf="@+id/nama"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fauzan Pramulia"
+        android:textSize="16sp"
+        android:layout_alignParentRight="true"
+        android:textAlignment="textEnd"/>
+    <TextView
+        android:id="@+id/nim"
+        android:layout_marginBottom="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nim Mahasiswa      : "
+        android:layout_below="@id/nama"
+        android:textSize="16sp"/>
+    <TextView
+        android:id="@+id/nim_mahasiswaST"
+        android:layout_toRightOf="@+id/nim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1511522019"
+        android:textSize="16sp"
+        android:layout_below="@+id/nama"
+        android:layout_alignParentRight="true"
+        android:textAlignment="textEnd"/>
+    <TextView
+        android:id="@+id/nilai"
+        android:layout_marginBottom="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nilai Ujian                 : "
+        android:layout_below="@id/nim"
+        android:textSize="16sp"/>
+    <TextView
+        android:id="@+id/nilai_mahasiswaST"
+        android:layout_toRightOf="@+id/nim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="100"
+        android:textSize="16sp"
+        android:layout_below="@+id/nim"
+        android:layout_alignParentRight="true"
+        android:textAlignment="textEnd"/>
+
+    <TextView
+        android:id="@+id/status"
+        android:layout_marginBottom="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Status Ujian             : "
+        android:layout_below="@id/nilai"
+        android:textSize="16sp"/>
+
+    <Spinner
+        android:id="@+id/status_mahasiswaST"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/nilai"
+        >
+    </Spinner>
+
+    <Button
+        android:id="@+id/kirim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_button"
+        android:text="Simpan"
+        android:textColor="@android:color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/status"
+        android:layout_marginTop="16dp"
+        />
+</RelativeLayout>

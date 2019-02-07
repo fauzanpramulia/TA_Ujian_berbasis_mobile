@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="No 1" />
-
+<!--menggunakannya hanya dengan ini-->
         <com.codesgood.views.JustifiedTextView
             android:layout_margin="8dp"
             android:id="@+id/soalUjian"
@@ -31,15 +31,17 @@
             android:textSize="16sp" />
     </android.support.v7.widget.CardView>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
+    <EditText
+        android:id="@+id/jawaban_js"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:layout_below="@+id/cardSoal"
-        tools:listitem="@layout/option_item">
-
-    </android.support.v7.widget.RecyclerView>
-
+        android:layout_height="wrap_content"
+        android:inputType="text|textMultiLine"
+        android:gravity="top"
+        android:visibility="gone"
+        android:hint="Isi Jawaban disini..."
+        android:layout_margin="16dp"
+        />
     <ProgressBar
         android:id="@+id/progress_bar"
         android:layout_width="100dp"
@@ -47,6 +49,68 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:visibility="invisible" />
+    <Button
+        android:id="@+id/kirimJS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:background="@drawable/shape_button"
+        android:textColor="@android:color/white"
+        android:layout_below="@+id/jawaban_js"
+        android:visibility="visible"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="16dp"
+        android:text="Simpan"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cardSoal"
+        tools:listitem="@layout/option_item">
+
+    </android.support.v7.widget.RecyclerView>
+    <Button
+        android:id="@+id/prev"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:background="@drawable/shape_button"
+        android:textColor="@android:color/white"
+        android:layout_alignParentBottom="true"
+        android:text="Prev"/>
+
+    <Button
+        android:id="@+id/next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:background="@drawable/shape_button"
+        android:textColor="@android:color/white"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:text="Next"/>
+    <Button
+        android:id="@+id/finish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:background="@drawable/shape_button"
+        android:textColor="@android:color/white"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:text="Finish"/>
+    <Button
+        android:id="@+id/home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:background="@drawable/shape_button"
+        android:textColor="@android:color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:text="Home"
+        />
 
 
 </RelativeLayout>

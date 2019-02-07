@@ -20,6 +20,7 @@ import java.util.Date;
 public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.MahasiswaHolder>{
     ArrayList<MahasiswaModel> dataUjian;
     Context context;
+    OnItemClicked Handler;
     public void setDataMahasiswa(ArrayList<MahasiswaModel> data) {
         this.dataUjian = data;
         notifyDataSetChanged();
@@ -28,7 +29,9 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.Maha
     public MahasiswaAdapter(Context context) {
         this.context = context;
     }
-
+    public void setHandler(OnItemClicked clickHandler) {
+        this.Handler = clickHandler;
+    }
     @NonNull
     @Override
     public MahasiswaHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -41,20 +44,21 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.Maha
 
         MahasiswaModel ujian = dataUjian.get(position);
 
-
+        String stat = "";
         holder.textNama.setText(ujian.getNama());
         holder.textNim.setText(ujian.getNim());
-        holder.textStatus.setText("Status   : "+String.valueOf(ujian.getStatus()));
-        holder.textNilai.setText("Nilai     : "+String.valueOf(ujian.getNilai()));
+        if(ujian.getStatus()==0){
+            stat = "Belum Ujian";
+        }else if(ujian.getStatus()==1){
+            stat = "Sedang Ujian";
+        }else if(ujian.getStatus()==2){
+            stat = "Selesai Ujian";
+        }else if (ujian.getStatus()==3){
+            stat = "Diblokir";
+        }
 
-        holder.view_container.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Intent i = new Intent(context, AturanUjianActivity.class);
-//                i.putExtra(AturanUjianActivity.EXTRA_UJIAN, dataUjian.get(position));
-//                context.startActivity(i);
-            }
-        });
+        holder.textStatus.setText("Status   : "+String.valueOf(ujian.getStatus())+" / ( "+stat+" )");
+        holder.textNilai.setText("Nilai     : "+String.valueOf(ujian.getNilai()));
 
     }
 
@@ -72,8 +76,6 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.Maha
         TextView textStatus;
         TextView textNilai;
 
-        RelativeLayout view_container;
-
         public MahasiswaHolder(View itemView) {
             super(itemView);
 //            textNilai = itemView.findViewById(R.id.nilai);
@@ -82,7 +84,16 @@ public class MahasiswaAdapter extends RecyclerView.Adapter<MahasiswaAdapter.Maha
             textStatus = itemView.findViewById(R.id.textStatus);
             textNilai = itemView.findViewById(R.id.textNilai);
 
-            view_container = (RelativeLayout) itemView.findViewById(R.id.view_container);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Handler.clik(dataUjian.get(getAdapterPosition()));
+
+                }
+            });
         }
+    }
+    public interface OnItemClicked{
+        void clik(MahasiswaModel m);
     }
 }

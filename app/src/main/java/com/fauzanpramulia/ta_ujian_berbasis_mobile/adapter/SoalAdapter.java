@@ -1,7 +1,9 @@
 package com.fauzanpramulia.ta_ujian_berbasis_mobile.adapter;
 
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
@@ -17,8 +19,10 @@ import com.fauzanpramulia.ta_ujian_berbasis_mobile.AturanUjianActivity;
 import com.fauzanpramulia.ta_ujian_berbasis_mobile.DaftarSoalActivity;
 import com.fauzanpramulia.ta_ujian_berbasis_mobile.MainActivity;
 import com.fauzanpramulia.ta_ujian_berbasis_mobile.R;
+import com.fauzanpramulia.ta_ujian_berbasis_mobile.db.AppDatabase;
 import com.fauzanpramulia.ta_ujian_berbasis_mobile.fragment.SoalFragment;
 import com.fauzanpramulia.ta_ujian_berbasis_mobile.model.SoalModel;
+import com.fauzanpramulia.ta_ujian_berbasis_mobile.shared.Session;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -28,8 +32,10 @@ import java.util.Date;
 public class SoalAdapter extends RecyclerView.Adapter<SoalAdapter.SoalHolder> {
     ArrayList<SoalModel> dataSoal;
     Context context;
-
+    AppDatabase db;
     OnItemClicked Handler;
+    Session session;
+    public static final String DATABASENAME = "ujian.db";
     public void setDataSoal(ArrayList<SoalModel> data) {
         this.dataSoal = data;
         notifyDataSetChanged();
@@ -47,14 +53,28 @@ public class SoalAdapter extends RecyclerView.Adapter<SoalAdapter.SoalHolder> {
     @Override
     public SoalHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.soal_item, parent, false);
+        db = Room.databaseBuilder(context, AppDatabase.class, DATABASENAME)
+                .allowMainThreadQueries()
+                .build();
         return new SoalHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull SoalHolder holder, final int position) {
 
+        session = new Session(context);
         final SoalModel ujian = dataSoal.get(position);
-        holder.textNo.setText(String.valueOf(ujian.getId()));
+        holder.textNo.setText(String.valueOf(position+1));
+
+        int i = checkData(ujian.getId(),session.getUjianMahasiswaID());
+
+        if (i!=0){
+            holder.view_container.setBackgroundColor(Color.parseColor("#C4DFE6"));
+            holder.textNo.setTextColor(Color.parseColor("#FFFFFF"));
+        }else{
+            holder.view_container.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            holder.textNo.setTextColor(Color.parseColor("#808080"));
+        }
     }
 
     @Override
@@ -67,21 +87,28 @@ public class SoalAdapter extends RecyclerView.Adapter<SoalAdapter.SoalHolder> {
 
     public class SoalHolder extends RecyclerView.ViewHolder {
         TextView textNo;
-
+        RelativeLayout view_container;
         public SoalHolder(View itemView) {
             super(itemView);
-
+            view_container = (RelativeLayout) itemView.findViewById(R.id.view_container);
             textNo = itemView.findViewById(R.id.no);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Handler.clik(dataSoal.get(getAdapterPosition()));
+                    Handler.clik(dataSoal.get(getAdapterPosition()),getAdapterPosition());
                 }
             });
 
         }
     }
     public interface OnItemClicked{
-        void clik(SoalModel m);
+        void clik(SoalModel m,int position);
+    }
+
+    public int checkData(int id, int ujian_mahasiswa_id) {
+        int nilai = 0;
+
+        nilai = db.jawabanUjianDao().checkJawabanJS(id, ujian_mahasiswa_id);
+        return nilai;
     }
 }

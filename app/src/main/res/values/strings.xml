@@ -1,15 +1,30 @@
 <resources>
     <string name="app_name">TA Ujian</string>
     <string name="aturan">
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry
-        standard dummy text ever since the 1500s,
-        when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-        It has survived not only five centuries,
-        but also the leap into electronic typesetting,
-        remaining essentially unchanged.
+        Peserta ujian diharapkan mengikuti aturan ujian sesuai dengan aturan yang ada.
+        Segala bentuk kecurangan akan mengurangi nilai,
+        hukuman paling berat diblokir oleh aplikasi.
+        peserta ujian dilarang menutup aplikasi dengan cara apapun ketika memulai ujian.
+        ketika mahasiswa selesai ujian klik menu "selesai".
 
+    </string>
+    <string name="aturan_menu">
+        Peserta ujian diharuskan sudah terdaftar di kelas pada mata kuliah tertentu.
+        Admin jurusan akan memasukkan identitas peserta.
+        jika ada jadwal ujian/kuis yang diadakan pada kelas akan langsung tersedia
+        pada tampilan ini. jika tidak bisa hubungi admin jurusan.
+        Nilai akan keluar setelah ujian selesai. peserta ujian bisa langsung melihat perolehan nilai
+        yang diterima.
+
+    </string>
+    <string name="about">
+        Aplikasi Ujian Online Versi 1.0.0 \nDirancang oleh : Fauzan Pramulia \nDibimbing : Husnil Kamil,M.T. \n\nAplikasi ini merupakan aplikasi yang digunakan untuk ujian Online berbasis mobile.
+        Aplikasi ini sebagai tugas akhir untuk memenuhi tuntutan Strata 1 di
+        Jurusan Sistem Informasi Universitas Andalas. segala bentuk kritik dan Saran bisa disampaikan
+        ke email pramuliafauzan@gmail.com
     </string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="periksa_selesai">Periksa kembali semua jawaban soal yang ada. jangan sampai ada yang terlewatkan. Apakah anda yakin sudah memeriksa setiap jawaban yang akan dikumpulkan?</string>
 </resources>

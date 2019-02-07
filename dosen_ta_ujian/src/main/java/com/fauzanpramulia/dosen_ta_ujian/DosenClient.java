@@ -1,5 +1,6 @@
 package com.fauzanpramulia.dosen_ta_ujian;
 
+import com.fauzanpramulia.dosen_ta_ujian.model.BiodataModel;
 import com.fauzanpramulia.dosen_ta_ujian.model.LoginModel;
 import com.fauzanpramulia.dosen_ta_ujian.model.MahasiswaModel;
 import com.fauzanpramulia.dosen_ta_ujian.model.UjianModel;
@@ -35,6 +36,14 @@ public interface DosenClient {
     Call<List<MahasiswaModel>> getDaftarMhs(@Field("token") String token,
                                        @Field("ujian_kelas_id") int ujian_kelas_id);
 
+    @FormUrlEncoded
+    @POST("dosen/update_status_mhs")
+    Call<ResponseBody> updateStatusMHS(@Field("token") String token,
+                                       @Field("status_mhs") int status_mhs,
+                                       @Field("ujian_mahasiswa_id") int ujian_mahasiswa_id);
+    @FormUrlEncoded
+    @POST("dosen/profil_dosen")
+    Call<BiodataModel> getProfil(@Field("token") String token );
 //    @FormUrlEncoded
 //    @POST("ujian/soal")
 //    Call<List<SoalModel>> daftarSoal(@Field("token") String token,

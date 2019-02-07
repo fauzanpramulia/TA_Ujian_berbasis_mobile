@@ -42,6 +42,7 @@ public class AturanUjianActivity extends AppCompatActivity {
         setContentView(R.layout.activity_aturan_ujian);
         ButterKnife.bind(this);
         session = new Session(this);
+
         final UjianModel ujian = getIntent().getParcelableExtra(EXTRA_UJIAN);
         btnMulai.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +57,7 @@ public class AturanUjianActivity extends AppCompatActivity {
 
         UjianClient client = RetrofitClientInstance.getRetrofitInstance().create(UjianClient.class);
 
-        Call<ResponseBody> call = client.getSoal(session.getToken(),kode,ujianID);
+        Call<ResponseBody> call = client.getSoal(session.getToken(),kode,ujianID, session.getUjianMahasiswaID());
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -84,10 +85,15 @@ public class AturanUjianActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 progressBar.setVisibility(View.INVISIBLE);
+                keluarGagalTerhubung();
                 Toast.makeText(AturanUjianActivity.this, "Gagal Terhubung ke Server", Toast.LENGTH_SHORT).show();
             }
 
         });
 
+    }
+    public void keluarGagalTerhubung() {
+        Intent i = new Intent(AturanUjianActivity.this, LoginActivity.class);
+        startActivity(i);
     }
 }

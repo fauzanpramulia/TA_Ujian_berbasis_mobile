@@ -7,11 +7,11 @@ public class RetrofitClientInstance {
 
     //buat retrofitClientInstance nya
     //untuk deklarasi base url
-//    public static String BASE_URL = "http://192.168.42.97:8000/api/";
-    public static String BASE_URL = "http://10.44.7.92:8000/api/";
+//    public static String BASE_URL = "http://192.168.42.224:8000/api/";
+//    public static String BASE_URL = "http://10.234.106.47:8000/api/";
+    public static String BASE_URL = "http://10.44.7.79:8000/api/";
 
     public static Retrofit getRetrofitInstance(){
-
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)

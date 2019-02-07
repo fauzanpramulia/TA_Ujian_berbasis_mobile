@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">Dosen TA Ujian</string>
+    <string name="aturan_menu">
+        Dosen akan melihat ujian yang telah dibuat pada aplikasi web. manajemen ujian dilakukan pada aplikasi web
+        sedangkan untuk monitoring dilakukan pada aplikasi mobile.
+        Dosen bisa memblokir mahasiswa yang bertindak curang atau teridentifikasi kecurangan.
+        Dosen bisa melihat semua status mahasiswa pada kelasnya.
+        dosen juga bisa melihat nilai dari mahasiswa yang bersangkutan.
+
+    </string>
+    <string name="about">
+        Aplikasi Ujian Online Versi 1.0.0 \nDirancang oleh : Fauzan Pramulia \nDibimbing : Husnil Kamil,M.T. \n\nAplikasi ini merupakan aplikasi yang digunakan untuk ujian Online berbasis mobile.
+        Aplikasi ini sebagai tugas akhir untuk memenuhi tuntutan Strata 1 di
+        Jurusan Sistem Informasi Universitas Andalas. segala bentuk kritik dan Saran bisa disampaikan
+        ke email pramuliafauzan@gmail.com
+    </string>
+
 </resources>

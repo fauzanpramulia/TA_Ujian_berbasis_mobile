@@ -23,6 +23,7 @@ public class UjianAdapter extends RecyclerView.Adapter<UjianAdapter.UjianHolder>
     ArrayList<UjianModel> dataUjian;
     Context context;
     OnItemClicked Handler;
+
     public void setDataUjian(ArrayList<UjianModel> data) {
         this.dataUjian = data;
         notifyDataSetChanged();
@@ -99,6 +100,7 @@ public class UjianAdapter extends RecyclerView.Adapter<UjianAdapter.UjianHolder>
                 @Override
                 public void onClick(View view) {
                     Handler.clik(dataUjian.get(getAdapterPosition()));
+
                 }
             });
         }
@@ -106,4 +108,5 @@ public class UjianAdapter extends RecyclerView.Adapter<UjianAdapter.UjianHolder>
     public interface OnItemClicked{
         void clik(UjianModel m);
     }
+
 }

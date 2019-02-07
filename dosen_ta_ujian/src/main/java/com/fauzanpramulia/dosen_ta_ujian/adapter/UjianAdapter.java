@@ -9,10 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fauzanpramulia.dosen_ta_ujian.DaftarMahasiswaActivity;
 import com.fauzanpramulia.dosen_ta_ujian.R;
 import com.fauzanpramulia.dosen_ta_ujian.model.UjianModel;
+import com.fauzanpramulia.dosen_ta_ujian.shared.Session;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ import java.util.Date;
 public class UjianAdapter extends RecyclerView.Adapter<UjianAdapter.UjianHolder>{
     ArrayList<UjianModel> dataUjian;
     Context context;
+    Session session;
     public void setDataUjian(ArrayList<UjianModel> data) {
         this.dataUjian = data;
         notifyDataSetChanged();
@@ -41,6 +44,7 @@ public class UjianAdapter extends RecyclerView.Adapter<UjianAdapter.UjianHolder>
     public void onBindViewHolder(@NonNull UjianHolder holder, final int position) {
 
         final UjianModel ujian = dataUjian.get(position);
+        session = new Session(context);
 
         SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy");
@@ -60,11 +64,19 @@ public class UjianAdapter extends RecyclerView.Adapter<UjianAdapter.UjianHolder>
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(context, DaftarMahasiswaActivity.class);
-                i.putExtra(DaftarMahasiswaActivity.EXTRA_ID, ujian.getId());
+                session.setUjianID(ujian.getId());
+                i.putExtra(DaftarMahasiswaActivity.EXTRA_UJIAN, ujian);
                 context.startActivity(i);
             }
         });
 
+        //=====untuk long click saja//////////============================================
+        holder.setItemLongClickListener(new ItemLongClickListener() {
+            @Override
+            public void onItemLongClick(View v, int pos) {
+                Toast.makeText(context,""+ujian.getNama_kelas(),Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -75,7 +87,7 @@ public class UjianAdapter extends RecyclerView.Adapter<UjianAdapter.UjianHolder>
         return 0;
     }
 
-    public class UjianHolder extends RecyclerView.ViewHolder {
+    public class UjianHolder extends RecyclerView.ViewHolder implements  View.OnLongClickListener{
         TextView textNilai;
         TextView textMataKuliah;
         TextView textKelas;
@@ -83,6 +95,7 @@ public class UjianAdapter extends RecyclerView.Adapter<UjianAdapter.UjianHolder>
         TextView textTanggal;
         TextView textRuangUjian;
         RelativeLayout view_container;
+        ItemLongClickListener itemLongClickListener;
 
         public UjianHolder(View itemView) {
             super(itemView);
@@ -93,7 +106,25 @@ public class UjianAdapter extends RecyclerView.Adapter<UjianAdapter.UjianHolder>
             textTanggal = itemView.findViewById(R.id.textTanggal);
             textRuangUjian = itemView.findViewById(R.id.textRuangUjian);
             view_container = (RelativeLayout) itemView.findViewById(R.id.view_container);
+
+            itemView.setOnLongClickListener(this);
+        }
+
+        public void setItemLongClickListener(ItemLongClickListener ic)
+        {
+            this.itemLongClickListener=ic;
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            this.itemLongClickListener.onItemLongClick(v,getLayoutPosition());
+            return false;
         }
     }
 
+    public interface ItemLongClickListener {
+
+        void onItemLongClick(View v,int pos);
+
+    }
 }

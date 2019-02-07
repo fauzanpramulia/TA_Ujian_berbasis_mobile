@@ -3,8 +3,12 @@
     package="com.fauzanpramulia.ta_ujian_berbasis_mobile">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.REORDER_TASKS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
+        android:name=".shared.MyContext"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -16,12 +20,15 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+                <!--<category android:name="android.intent.category.HOME" />-->
+                <!--<category android:name="android.intent.category.DEFAULT" />-->
             </intent-filter>
         </activity>
         <activity android:label="Daftar Ujian" android:name=".MainActivity" />
         <activity android:label="Aturan Ujian"
             android:name=".AturanUjianActivity" />
         <activity android:name=".DaftarSoalActivity"></activity>
+
     </application>
 
 </manifest>

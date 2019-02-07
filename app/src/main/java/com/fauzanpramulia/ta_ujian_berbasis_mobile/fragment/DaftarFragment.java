@@ -1,5 +1,6 @@
 package com.fauzanpramulia.ta_ujian_berbasis_mobile.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -35,7 +36,7 @@ import static com.fauzanpramulia.ta_ujian_berbasis_mobile.DaftarSoalActivity.EXT
 import static com.fauzanpramulia.ta_ujian_berbasis_mobile.DaftarSoalActivity.EXTRA_NAMA_MK;
 import static com.fauzanpramulia.ta_ujian_berbasis_mobile.DaftarSoalActivity.EXTRA_UJIAN_ID;
 
-public class DaftarFragment extends Fragment implements SoalAdapter.OnItemClicked{
+public class DaftarFragment extends Fragment {
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
     @BindView(R.id.progress_bar)ProgressBar progressBar;
@@ -54,7 +55,7 @@ public class DaftarFragment extends Fragment implements SoalAdapter.OnItemClicke
         absenList = (ArrayList<SoalModel>)getArguments().getSerializable("daftarSoal");
 
         soalAdapter = new SoalAdapter(getActivity());
-        soalAdapter.setHandler(this);
+        soalAdapter.setHandler((SoalAdapter.OnItemClicked) getActivity());
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),4));
         soalAdapter.setDataSoal(absenList);
         recyclerView.setAdapter(soalAdapter);
@@ -62,22 +63,31 @@ public class DaftarFragment extends Fragment implements SoalAdapter.OnItemClicke
         return rootView;
     }
 
-    @Override
-    public void clik(SoalModel m) {
+//    @Override
+//    public void clik(SoalModel m) {
 //        Toast.makeText(getActivity(), "Item yang dipilih : "+m.getId(), Toast.LENGTH_SHORT).show();
-        bundle = new Bundle();
-        bundle.putInt("id",m.getId());
-        bundle.putString("soal",m.getSoal());
-        bundle.putInt("tipe_soal",m.getTipeSoal());
-        bundle.putSerializable("options", (Serializable) m.getOptions());
-        soalFragment();
-    }
-    public void soalFragment(){
-        SoalFragment soalFragment = new SoalFragment();
-        soalFragment.setArguments(bundle);
-        FragmentManager mFragmentManager = getActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_placeholder, soalFragment).commit();
-    }
+//        bundle = new Bundle();
+//        bundle.putInt("id",m.getId());
+//        bundle.putString("soal",m.getSoal());
+//        bundle.putInt("tipe_soal",m.getTipe_soal());
+//        bundle.putSerializable("options", (Serializable) m.getOptions());
+//        soalFragment();
+//        Intent i = new Intent(getActivity().getBaseContext(),
+//                DaftarSoalActivity.class);
+//
+//        //PACK DATA
+//        i.putExtra("data", "dataSoal");
+//        i.putExtra("id", m.getId());
+//
+//        //START ACTIVITY
+//        getActivity().startActivity(i);
+
+//        FragmentManager fm = getActivity().getSupportFragmentManager();
+//        if(fm.getBackStackEntryCount()>0) {
+//            fm.popBackStack();
+//        }
+
+//    }
+
 
 }

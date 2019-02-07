@@ -7,8 +7,15 @@
     android:padding="16dp"
     android:orientation="vertical"
     tools:context=".LoginActivity">
-
+    <ImageView
+        android:id="@+id/log"
+        android:layout_centerHorizontal="true"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:src="@drawable/logo_simu"/>
     <TextView
+        android:layout_below="@+id/log"
+        android:layout_centerHorizontal="true"
         android:id="@+id/signDosen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,7 +24,7 @@
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:text="Login Dosen"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -43,6 +50,7 @@
         app:met_primaryColor="@android:color/black"
         app:met_singleLineEllipsis="true"
         android:layout_below="@id/signDosen" />
+
 
     <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/text_pass"
