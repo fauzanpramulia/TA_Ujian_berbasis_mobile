@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.fauzanpramulia.ta_ujian_berbasis_mobile.DaftarSoalActivity;
 import com.fauzanpramulia.ta_ujian_berbasis_mobile.R;
 import com.fauzanpramulia.ta_ujian_berbasis_mobile.adapter.OptionAdapter;
+import com.fauzanpramulia.ta_ujian_berbasis_mobile.adapter.OptionRadioAdapter;
 import com.fauzanpramulia.ta_ujian_berbasis_mobile.db.AppDatabase;
 import com.fauzanpramulia.ta_ujian_berbasis_mobile.db.JawabanUjian;
 import com.fauzanpramulia.ta_ujian_berbasis_mobile.model.JawabanModel;
@@ -50,11 +51,13 @@ public class SoalFragment extends Fragment {
     public static AppDatabase db;
     Session session;
     OptionAdapter optionAdapter;
+    OptionRadioAdapter optionRadioAdapter;
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
     @BindView(R.id.progress_bar)
     ProgressBar progressBar;
     @BindView(R.id.home) Button btnHome;
+    @BindView(R.id.ket) TextView textKet;
     ArrayList<OptionModel> listOption;
     Bundle bundle;
     public static String DATABASENAME = "ujian.db";
@@ -69,6 +72,12 @@ public class SoalFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_soal, container, false);
         ButterKnife.bind(this, rootView);
         session = new Session(getActivity());
+        btnFinish.setEnabled(true);
+        btnHome.setEnabled(true);
+        btnNext.setEnabled(true);
+        btnPrev.setEnabled(true);
+        btnSimpanJS.setEnabled(true);
+
         db = Room.databaseBuilder(getActivity(), AppDatabase.class, DATABASENAME)
                 .allowMainThreadQueries()
                 .build();
@@ -81,16 +90,40 @@ public class SoalFragment extends Fragment {
         if (listOption != null ){
             Collections.shuffle(listOption);
         }
-        if (bundle.getInt("tipe_soal") == 2) {
+        if (bundle.getInt("tipe_soal") == 3){
+            optionRadioAdapter = new OptionRadioAdapter(getActivity());
+            optionRadioAdapter.setHandler((OptionRadioAdapter.OnItemClicked) getActivity());
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+            optionRadioAdapter.setDataOption(listOption);
+            recyclerView.setAdapter(optionRadioAdapter);
+
+            edtJawabanJS.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+            btnSimpanJS.setVisibility(View.GONE);
+            textKet.setVisibility(View.VISIBLE);
+            textKet.setText("ctt : Option ganda, TETAPI jawaban hanya 1!");
+        }
+        else if (bundle.getInt("tipe_soal") == 2) {
             edtJawabanJS.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
             btnSimpanJS.setVisibility(View.VISIBLE);
+            textKet.setVisibility(View.INVISIBLE);
             int i = checkDataJS(session.getSoalUjianID(), session.getUjianMahasiswaID());
             if (i == 1) {
                 JawabanModel jawabanJS = ambilDataJS();
                 edtJawabanJS.setText(jawabanJS.getJawaban());
             }
         } else {
+
+            optionAdapter = new OptionAdapter(getActivity());
+            optionAdapter.setHandler((OptionAdapter.OnItemClicked) getActivity());
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+            optionAdapter.setDataOption(listOption);
+            recyclerView.setAdapter(optionAdapter);
+            textKet.setVisibility(View.VISIBLE);
+            textKet.setText("ctt : Soal pilihan ganda, jawaban bisa banyak!");
             edtJawabanJS.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
             btnSimpanJS.setVisibility(View.GONE);
@@ -109,32 +142,22 @@ public class SoalFragment extends Fragment {
             btnNext.setVisibility(View.VISIBLE);
             btnFinish.setVisibility(View.INVISIBLE);
         }
-        optionAdapter = new OptionAdapter(getActivity());
-        optionAdapter.setHandler((OptionAdapter.OnItemClicked) getActivity());
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        optionAdapter.setDataOption(listOption);
-        recyclerView.setAdapter(optionAdapter);
 
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //tampilOption();
-//                final ProgressB progress = new ProgressDialog(getActivity());
-//                progress.setTitle("Loading");
-//                progress.setMessage("Wait while loading...");
-//                progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
                 progressBar.setVisibility(View.VISIBLE);
-//                progressBar.setMax(100);
-//                progressBar.setProgress(0);
-//                progress.show();
-
+                btnFinish.setEnabled(false);
+                btnHome.setEnabled(false);
+                btnNext.setEnabled(false);
+                btnPrev.setEnabled(false);
+                btnSimpanJS.setEnabled(false);
                 final Thread thread = new Thread(){
                     @Override
                     public void run(){
                         try {
                             for (int i = 0;i <100;i++){
-//                                progressBar.setProgress(i);
                                 sleep(20);
                             }
                         }catch (Exception e){
@@ -153,12 +176,11 @@ public class SoalFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 progressBar.setVisibility(View.VISIBLE);
-//disini masalah saya adalah memanggil thread yang terllau banyak sehingga kita harus membatasi dengan
-                //loading
-                //loading yang saya buat disini dengan thread juga.
-                //sehingga error tadi tidak ditemukan lagi..
-                //permasalahan thread berbeda beda tetapi dikasus saya ini adalah banyaknye thread yang menumpuk sehingga
-                //untuk membatasinya menggunakan thread juga
+                btnFinish.setEnabled(false);
+                btnHome.setEnabled(false);
+                btnNext.setEnabled(false);
+                btnPrev.setEnabled(false);
+                btnSimpanJS.setEnabled(false);
                 final Thread thread = new Thread(){
                     @Override
                     public void run(){
@@ -182,6 +204,11 @@ public class SoalFragment extends Fragment {
             public void onClick(View view) {
                 // tampilOption();
                 progressBar.setVisibility(View.VISIBLE);
+                btnFinish.setEnabled(false);
+                btnHome.setEnabled(false);
+                btnNext.setEnabled(false);
+                btnPrev.setEnabled(false);
+                btnSimpanJS.setEnabled(false);
                 final Thread thread = new Thread(){
                     @Override
                     public void run(){
@@ -204,6 +231,11 @@ public class SoalFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 progressBar.setVisibility(View.VISIBLE);
+                btnFinish.setEnabled(false);
+                btnHome.setEnabled(false);
+                btnNext.setEnabled(false);
+                btnPrev.setEnabled(false);
+                btnSimpanJS.setEnabled(false);
                 final Thread thread = new Thread(){
                     @Override
                     public void run(){
@@ -296,6 +328,5 @@ public class SoalFragment extends Fragment {
 //            Toast.makeText(this, ""+m.jawaban, Toast.LENGTH_SHORT).show();
         return m;
     }
-
 
 }

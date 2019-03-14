@@ -27,10 +27,7 @@ import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 public interface UjianClient {
-//    @GET("absensi")
-//    Call<List<UjianModel>> getUjian();
-//
-    //buat kelas interfacenya
+
     @FormUrlEncoded
     @POST("login/users")
     Call<LoginModel> login(@Field("username") String username,
@@ -56,10 +53,6 @@ public interface UjianClient {
                                   @Field("kode") String kode,
                                   @Field("ujian_id") int ujian_id);
 
-//    @Multipart
-//    @FormUrlEncoded
-//    @Headers({ "Content-Type: application/json;charset=UTF-8"})
-    //pastikan ada headernya authorizationuntuk tokennya
     @POST("ujian/simpan_jawaban")
     Call<ResponseBody> simpanJawaban(@Header("Authorization") String token,
                                      @Body List<JawabanModel> jawaban);
@@ -71,14 +64,5 @@ public interface UjianClient {
     @POST("ujian/update_status_mhs")
     Call<ResponseBody> updateStatusMHS(@Field("token") String token,
                                        @Field("ujian_mahasiswa_id") int ujian_mahasiswa_id);
-//    @FormUrlEncoded
-//    @Multipart
-//    @POST("absensi/insert")
-//    Call<ResponseBody> insertAbsen(
-//            @Part("bp") RequestBody bp,
-//            @Part("nama") RequestBody nama,
-//            @Part("kelas") RequestBody kelas,
-//            @Part("mata_kuliah") RequestBody mata_kuliah,
-//            @Part MultipartBody.Part filePart,
-//            @Part("name") RequestBody foto);
+
 }

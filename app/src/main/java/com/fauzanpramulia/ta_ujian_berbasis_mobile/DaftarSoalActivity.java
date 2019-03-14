@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.fauzanpramulia.ta_ujian_berbasis_mobile.adapter.OptionAdapter;
+import com.fauzanpramulia.ta_ujian_berbasis_mobile.adapter.OptionRadioAdapter;
 import com.fauzanpramulia.ta_ujian_berbasis_mobile.adapter.SoalAdapter;
 import com.fauzanpramulia.ta_ujian_berbasis_mobile.db.AppDatabase;
 import com.fauzanpramulia.ta_ujian_berbasis_mobile.db.JawabanUjian;
@@ -44,7 +45,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DaftarSoalActivity extends AppCompatActivity implements SoalAdapter.OnItemClicked, OptionAdapter.OnItemClicked {
+public class DaftarSoalActivity extends AppCompatActivity implements SoalAdapter.OnItemClicked, OptionAdapter.OnItemClicked ,OptionRadioAdapter.OnItemClicked{
     public static int posisi = 0;
     public static String EXTRA_KODE = "extra_kode";
     public static String EXTRA_UJIAN_ID = "extra_ujian_id";
@@ -231,18 +232,11 @@ public class DaftarSoalActivity extends AppCompatActivity implements SoalAdapter
         }
         bundle.putInt("pos", pos);
 
-        //cara memanggil fragment sangat muda hanya dengan deklarsikan fragment tersebut dengan kelas fragmentnya..
-        //disini saya deklarasi global SoalFragment dengan variabel soalFragment.
         soalFragment = new SoalFragment();
-        //ketika mau memasukkan item ke dalam fragment juga bisa. maksudnya mengirim data
-        //dengan menggunakan bundle
         soalFragment.setArguments(bundle);
-        //setelah itu cukup memanggil fragment manager dan transaction
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        //jangan lupa tempat meletakkan fragmentnya.
         transaction.replace(R.id.fragment_placeholder, soalFragment);
-        //setelah itu commit untuk memulai menampilkan fragmentnnya...
         transaction.commit();
     }
 

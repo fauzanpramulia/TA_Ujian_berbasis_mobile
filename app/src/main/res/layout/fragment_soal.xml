@@ -70,6 +70,16 @@
         tools:listitem="@layout/option_item">
 
     </android.support.v7.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/ket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/recycler_view"
+        android:text="Keterangan : "
+        android:layout_margin="16dp"
+        android:textSize="10sp"
+        android:visibility="invisible"/>
     <Button
         android:id="@+id/prev"
         android:layout_width="wrap_content"
