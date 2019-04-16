@@ -3,8 +3,8 @@ package com.fauzanpramulia.dosen_ta_ujian;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,7 +13,6 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
@@ -44,15 +43,17 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
-    @BindView(R.id.progress_bar)ProgressBar progressBar;
-    Session session ;
+    @BindView(R.id.progress_bar)
+    ProgressBar progressBar;
+    Session session;
     UjianAdapter ujianAdapter;
     BiodataModel profil;
-    @BindView(R.id.profil_user) LinearLayout linearProfil;
-    @BindView(R.id.nama_profil) TextView txtNama;
+    @BindView(R.id.profil_user)
+    LinearLayout linearProfil;
+    @BindView(R.id.nama_profil)
+    TextView txtNama;
 
-    //deklarasi terlebih dahulu fade in sebagai animation
-    Animation fadeOut,fadeIn;
+    Animation fadeOut, fadeIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 //kemudian deklarasikan ini sebagai fadi in
-        fadeIn= AnimationUtils.loadAnimation(MainActivity.this, android.R.anim.fade_in);
+        fadeIn = AnimationUtils.loadAnimation(MainActivity.this, android.R.anim.fade_in);
 
         setTitle("Daftar Ujian");
         ujianAdapter = new UjianAdapter(this);
@@ -84,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
@@ -110,11 +112,27 @@ public class MainActivity extends AppCompatActivity {
             case R.id.about:
                 universalDialog(getResources().getString(R.string.about), "Tentang");
                 break;
+            case R.id.veri_vali:
+                if (session.getStatusRol()==2 || session.getStatusRol()==3){
+                        Intent i = new Intent(MainActivity.this, UjianUasUtsActivity.class);
+                        startActivity(i);
+                        finish();
+                }
+                else{
+                    Toast.makeText(this, "Hanya dapat diakses oleh Ketua Prodi dan Tim GKM", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.refresh:
+                Toast.makeText(this, "Refresh Data", Toast.LENGTH_SHORT).show();
+                getProfil();
+                getUjian();
+                recyclerView.setAdapter(ujianAdapter);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void getUjian(){
+    private void getUjian() {
         progressBar.setVisibility(View.VISIBLE);
 
         DosenClient client = RetrofitClientInstance.getRetrofitInstance().create(DosenClient.class);
@@ -127,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
 
                 ujianAdapter.setDataUjian((ArrayList<UjianModel>) absenList);
                 progressBar.setVisibility(View.INVISIBLE);
+                recyclerView.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -136,7 +155,6 @@ public class MainActivity extends AppCompatActivity {
                 gagalTerhubungServer();
             }
         });
-
     }
 
     private void startDialog() {
@@ -170,11 +188,11 @@ public class MainActivity extends AppCompatActivity {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.body() != null){
-                    JSONObject jObjError =null;
+                if (response.body() != null) {
+                    JSONObject jObjError = null;
                     try {
                         jObjError = new JSONObject(response.body().string());
-                        Toast.makeText(MainActivity.this, ""+jObjError.getString("message"), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "" + jObjError.getString("message"), Toast.LENGTH_SHORT).show();
                         Intent i = new Intent(MainActivity.this, LoginActivity.class);
                         startActivity(i);
                         finish();
@@ -200,12 +218,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void gagalTerhubungServer(){
+    public void gagalTerhubungServer() {
         Intent i = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(i);
+        finish();
     }
 
-    private void getProfil(){
+    private void getProfil() {
 
         DosenClient client = RetrofitClientInstance.getRetrofitInstance().create(DosenClient.class);
 
@@ -215,7 +234,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<BiodataModel> call, Response<BiodataModel> response) {
                 profil = response.body();
                 grow();
-                txtNama.setText(profil.getNama()+"\n"+profil.getNip());
+                txtNama.setText(profil.getNama() + "\n" + profil.getNip());
             }
 
             @Override
@@ -226,7 +245,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-    public void fadeout(){
+
+    public void fadeout() {
         fadeOut.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -245,10 +265,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
-//cara penggunaaannya seperti dibawah ini
-    public void fadein(){
+    //cara penggunaaannya seperti dibawah ini
+    public void fadein() {
         fadeOut.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -268,18 +286,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
-
-
-
-
-
-
-
-    public void grow(){
+    public void grow() {
         linearProfil.setVisibility(LinearLayout.VISIBLE);
-        Animation animation   =    AnimationUtils.loadAnimation(this, R.anim.grow);
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.grow);
         animation.setDuration(500);
         linearProfil.setAnimation(animation);
         linearProfil.animate();
@@ -291,7 +300,7 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d("Focus debug", "Focus changed !");
 
-        if(!hasFocus) {
+        if (!hasFocus) {
             Log.d("Focus debug", "Lost focus !");
 
             Intent closeDialog = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);

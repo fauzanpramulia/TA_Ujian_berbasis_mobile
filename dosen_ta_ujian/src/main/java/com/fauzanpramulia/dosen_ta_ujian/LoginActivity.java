@@ -78,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
                     LoginModel login = response.body();
                     //ini memamnggil itemnya tadi
                     session.setToken(login.getAccess_token());
-//                    Toast.makeText(LoginActivity.this, ""+session.getToken(), Toast.LENGTH_SHORT).show();
+                    session.setStatus_rol(login.getStatus_rol());
                     Intent i = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(i);
                     finish();

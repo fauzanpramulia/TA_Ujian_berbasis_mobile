@@ -51,6 +51,7 @@ public class ChangeStatusActivity extends AppCompatActivity implements AdapterVi
         ButterKnife.bind(this);
         session = new Session(this);
         setTitle("Ubah Status Mahasiswa");
+
         spinStatus.setOnItemSelectedListener(this);
         final UjianModel ujian= getIntent().getExtras().getParcelable(E_UJIAN);
 
@@ -79,7 +80,6 @@ public class ChangeStatusActivity extends AppCompatActivity implements AdapterVi
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//        Toast.makeText(getApplicationContext(), bankStatus[i], Toast.LENGTH_LONG).show();
         status_mhs = i;
     }
 

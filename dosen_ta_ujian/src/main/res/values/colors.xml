@@ -4,4 +4,8 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorProfil">#94c1ff</color>
+    <color name="belum">#d1a02c</color>
+    <color name="sudah">#38ab27</color>
+    <color name="ditolak">#b71d50</color>
+
 </resources>

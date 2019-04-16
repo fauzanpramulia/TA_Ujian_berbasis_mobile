@@ -7,14 +7,13 @@ public class LoginModel implements Parcelable {
     String access_token;
     String token_type;
     int expires_in;
+    int status_rol;
 
-    public LoginModel(String access_token, String token_type, int expires_in) {
+    public LoginModel(String access_token, String token_type, int expires_in, int status_rol) {
         this.access_token = access_token;
         this.token_type = token_type;
         this.expires_in = expires_in;
-    }
-
-    public LoginModel() {
+        this.status_rol = status_rol;
     }
 
     public String getAccess_token() {
@@ -41,6 +40,14 @@ public class LoginModel implements Parcelable {
         this.expires_in = expires_in;
     }
 
+    public int getStatus_rol() {
+        return status_rol;
+    }
+
+    public void setStatus_rol(int status_rol) {
+        this.status_rol = status_rol;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -51,12 +58,14 @@ public class LoginModel implements Parcelable {
         dest.writeString(this.access_token);
         dest.writeString(this.token_type);
         dest.writeInt(this.expires_in);
+        dest.writeInt(this.status_rol);
     }
 
     protected LoginModel(Parcel in) {
         this.access_token = in.readString();
         this.token_type = in.readString();
         this.expires_in = in.readInt();
+        this.status_rol = in.readInt();
     }
 
     public static final Creator<LoginModel> CREATOR = new Creator<LoginModel>() {

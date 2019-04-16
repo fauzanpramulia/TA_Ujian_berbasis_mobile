@@ -4,6 +4,7 @@ import com.fauzanpramulia.dosen_ta_ujian.model.BiodataModel;
 import com.fauzanpramulia.dosen_ta_ujian.model.LoginModel;
 import com.fauzanpramulia.dosen_ta_ujian.model.MahasiswaModel;
 import com.fauzanpramulia.dosen_ta_ujian.model.UjianModel;
+import com.fauzanpramulia.dosen_ta_ujian.model.UjianVeriDanValiModel;
 
 import java.util.List;
 
@@ -32,6 +33,10 @@ public interface DosenClient {
     Call<List<UjianModel>> getUjian(@Field("token") String token);
 
     @FormUrlEncoded
+    @POST("dosen/veriDanVali")
+    Call<List<UjianVeriDanValiModel>> getUjianUasUts(@Field("token") String token);
+
+    @FormUrlEncoded
     @POST("dosen/daftar_mahasiswa")
     Call<List<MahasiswaModel>> getDaftarMhs(@Field("token") String token,
                                        @Field("ujian_kelas_id") int ujian_kelas_id);
@@ -44,6 +49,13 @@ public interface DosenClient {
     @FormUrlEncoded
     @POST("dosen/profil_dosen")
     Call<BiodataModel> getProfil(@Field("token") String token );
+
+    @FormUrlEncoded
+    @POST("dosen/updateVeriDanVali")
+    Call<ResponseBody> updateDataVeriVali(@Field("token") String token,
+                                           @Field("status_mhs") int status_mhs,
+                                           @Field("ujian_id") int ujian_id,
+                                           @Field("keterangan") String keterangan);
 //    @FormUrlEncoded
 //    @POST("ujian/soal")
 //    Call<List<SoalModel>> daftarSoal(@Field("token") String token,

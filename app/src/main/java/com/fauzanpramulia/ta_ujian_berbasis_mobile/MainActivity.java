@@ -107,6 +107,13 @@ public class MainActivity extends AppCompatActivity implements UjianAdapter.OnIt
             case R.id.about:
                 universalDialog(getResources().getString(R.string.about), "Tentang");
                 break;
+            case R.id.refresh:
+                Toast.makeText(this, "Refresh Data", Toast.LENGTH_SHORT).show();
+                recyclerView.setVisibility(View.INVISIBLE);
+                getProfil();
+                getUjian();
+                recyclerView.setAdapter(ujianAdapter);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -132,6 +139,7 @@ public class MainActivity extends AppCompatActivity implements UjianAdapter.OnIt
 
                 ujianAdapter.setDataUjian((ArrayList<UjianModel>) absenList);
                 progressBar.setVisibility(View.INVISIBLE);
+                recyclerView.setVisibility(View.VISIBLE);
             }
 
             @Override

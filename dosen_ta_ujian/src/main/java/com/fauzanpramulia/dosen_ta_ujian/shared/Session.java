@@ -9,11 +9,13 @@ public class Session {
     public SharedPreferences loginToken;
     public SharedPreferences ujianMahasiswaID;
     public SharedPreferences ujianID;
+    public SharedPreferences status_rol;
 
     public Session(Context cntx) {
         loginToken = PreferenceManager.getDefaultSharedPreferences(cntx);
         ujianMahasiswaID = PreferenceManager.getDefaultSharedPreferences(cntx);
         ujianID = PreferenceManager.getDefaultSharedPreferences(cntx);
+        status_rol = PreferenceManager.getDefaultSharedPreferences(cntx);
     }
 
     public void setToken(String token) {
@@ -22,6 +24,15 @@ public class Session {
 
     public String getToken() {
         String usename = loginToken.getString("token","");
+        return usename;
+    }
+
+    public void setStatus_rol(int status) {
+        status_rol.edit().putInt("status", status).commit();
+    }
+
+    public int getStatusRol() {
+        int usename = status_rol.getInt("status",0);
         return usename;
     }
 
